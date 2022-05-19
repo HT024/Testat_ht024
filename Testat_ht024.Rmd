@@ -1,0 +1,78 @@
+---
+title: "Testat Teil 2"
+author: "Hümeyra Tukat (ht024)"
+date: '2022-05-19'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Gesamnetzwerk erstellen, echo=FALSE}
+
+# zuerst muss ich die Programmbibliothek laden
+
+library(igraph)
+
+# Nun muss ich meine Edge- und Nodelist, die ich zuvor auf Github hochgeladen habe einsetzen.
+
+edge <- read.csv("https://raw.githubusercontent.com/HT024/Testat_ht024/main/Edgelist_all_ht024.csv", header=T, as.is=T, sep = ",")
+
+node <- read.csv("https://raw.githubusercontent.com/HT024/Testat_ht024/main/Nodelist_all_ht024.csv", header=T, as.is=T, sep = ",")
+
+# Anschließend erstell ich jetzt die Matrix
+
+edgematrix <-as.matrix(edge)
+
+# Zusammenführen von Edge- und Nodelist als igraph-Objekt. Ich nenne meinen Datensatz vfb_kader
+
+vfb_kader <- graph_from_data_frame(d=edgematrix,directed=F)
+vfb_kader
+
+```
+
+
+
+```{r Netzwerk visualisieren, fig.height=6, fig.width=10, message=FALSE, warning=FALSE, paged.print=FALSE}
+plot(vfb_kader,                               #Mein Datensatz der visualisiert werden soll
+     asp=0,
+     layout=layout.davidson.harel(vfb_kader), #das Layout wird hiermit eingestellt, ich hab einfach solange den Code ausprobiert                                                  bis es ordentlich aussah
+     rescale=TRUE,
+     vertex.size=degree(vfb_kader)*3,         #hiermit konnte ich die Größe meiner Knoten so anlegen, dass sie größer werden je                                                   öfter sie im Datensatz vorkamen
+     vertex.frame.color="black",              #farbe der Knoten-Ränder
+     edge.color="black",                      #farbe der Kanten
+     edge.arrow.size=.4,                      #größe der Pfeile 
+     main="Aktueller Kader der VFB und ihre Transfere", #Überschrift
+     sub="Visualisierung nach den letzten Transferen der Spieler und ihrer Nationalität") #Unter-/Überschrift/Beschreibung
+```
+
+```{r Gesamnetzwerk erstellen, echo=FALSE}
+#aus purem Interesse habe ich zuerst einen Datensatz erstellt, in der ich die ganzen aktuellen/neusten Transfers die für diese/innerhalb dieser Season stattgefunden haben erhoben habe. Da ich es spannend fand zu sehen wie das Netzwerk unterhalb diesen Spielern aussieht. 
+
+library(igraph)
+
+# Einlesen der Edge- und Nodelist
+el <- read.csv("https://raw.githubusercontent.com/HT024/Testat_ht024/main/Edgelist_ht024.csv", header=T, as.is=T, sep = ",")
+nodes <- read.csv("https://raw.githubusercontent.com/HT024/Testat_ht024/main/Nodelist_ht024.csv", header=T, as.is=T, sep = ",")
+
+# Matrix erstellen
+edgematrix <-as.matrix(el)
+
+# Zusammenführen von Edge- und Nodelist als igraph-Objekt hier habe ich es new_transfers genannt
+new_transfers <- graph_from_data_frame(d=edgematrix, directed=T)
+new_transfers
+```
+
+```{r Netzwerk visualisieren, fig.height=6, fig.width=10, message=FALSE, warning=FALSE, paged.print=FALSE}
+plot(new_transfers,                         #mein Datensatz, der visualisiert werden soll
+     asp=0,
+     layout=layout_with_gem(new_transfers), #das Layout wird hiermit eingestellt, ich hab einfach solange den Code ausprobiert                                                  bis es ordentlich aussah
+     rescale=TRUE,
+     vertex.size=degree(new_transfers)*3,   #hiermit konnte ich die Größe meiner Knoten so anlegen, dass sie größer werden je                                                   öfter sie im Datensatz vorkamen
+     vertex.frame.color="blue",             #Farbe der Knoten-Ränder
+     edge.color="black",                    #Farbe der Kanten
+     edge.arrow.size=.4,                    #Größe der Pfeile
+     main="Die neusten Transfere der VFB",  #Überschrift
+     sub="Die neusten Transferspieler der VFB und deren Nationalitäten") #Unter-/Überschrift/Beschreibung des                                                                                             Netzwerks
+```
