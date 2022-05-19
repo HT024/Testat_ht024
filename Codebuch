@@ -4,7 +4,7 @@ Erhoben wurden die Transfere der Spieler der VFB und deren Nationalität als auc
 
 Daten Quelle:https://www.transfermarkt.de/vfb-stuttgart/startseite/verein/79 
 
-#Edgelist
+Edgelist
 
 from,to,weight,season
 
