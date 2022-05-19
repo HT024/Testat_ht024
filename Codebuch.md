@@ -1,5 +1,9 @@
 Codebuch
 
+Erhoben wurden die Transfere der Spieler der VFB und deren Nationalität als auch wie viel Geld sie der VFB gekostet haben.
+
+Daten Quelle:https://www.transfermarkt.de/vfb-stuttgart/startseite/verein/79 
+
 Edgelist
 
 from,to,weight,season
@@ -7,7 +11,7 @@ from,to,weight,season
 from= Verein aus dem Spieler kommen
 to= Spieler (mit Rückennummer angegeben)
 weight= Transfersummer/Geld das für Spieler ausgegeben wurde (in 100.000er Schritten)
-season=Jahr in dem Transfer stattgefunden hat
+season= Jahr in dem Transfer stattgefunden hat
 
 um Nationalität anzuzeigen:
 from= Spieler (mit Rückennummer angegeben)
